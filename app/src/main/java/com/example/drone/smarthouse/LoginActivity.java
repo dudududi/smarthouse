@@ -2,8 +2,14 @@ package com.example.drone.smarthouse;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends Activity {
 
@@ -11,6 +17,31 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //Przyklad uzycia asynchronicznego wywolania:
+        final Button button = (Button) findViewById(R.id.loginButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ConnectionService.getInstance().requestRoomList(new ConnectionService.ResponseHandler() {
+                    @Override
+                    public void onResponseReceived(HashMap<String, Integer> response) {
+                        for(Map.Entry<String, Integer> entry : response.entrySet()) {
+                            String key = entry.getKey();
+                            Log.d("TAG", key + ": "+ response.get(key));
+                        }
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        Log.d("TAG", "Error: " + msg);
+                    }
+                });
+
+                //jak wywolujemy jakis setter, to nie musimy sie martwic o odpowiedz - Logi zapisza się na serwerze
+                ConnectionService.getInstance().setTemperature(30, 1);
+            }
+        });
+
     }
 
     @Override
@@ -34,4 +65,5 @@ public class LoginActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
