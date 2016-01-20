@@ -33,7 +33,9 @@ public class MainActivity extends Activity {
 
         connectionService = ConnectionService.getInstance();
         rooms = new ArrayList<>();
+
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
 
             connectionService.requestRoomList(new ConnectionService.ResponseHandler() {
                 @Override
@@ -41,8 +43,15 @@ public class MainActivity extends Activity {
                     for (Map.Entry<String, Integer> entry : response.entrySet()) {
                         rooms.add(entry.getKey());
                     }
-                    roomAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item, rooms);
-                    spinner.setAdapter(roomAdapter);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            roomAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item, rooms);
+                            spinner.setAdapter(roomAdapter);
+                            spinner.setSelection(0);
+                            roomAdapter.notifyDataSetChanged();
+                        }
+                    });
                 }
 
                 @Override
