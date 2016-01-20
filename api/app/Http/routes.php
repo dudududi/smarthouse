@@ -11,9 +11,29 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+//  return view('index');
+//});
+
+
+
+Route::group(['prefix'=>'api'],function(){
+
+    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+    Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
+
+    Route::resource('rooms.temperature','TemperatureController',['only' => ['index','store']]);
+
+    Route::resource('rooms','Roomcontroller',['only' => ['index']]);
+
+    Route::resource('rooms.doors','DoorController',['only' => ['index','store']]);
+
+    Route::resource('rooms.lights','LightController',['only' => ['index','store']]);
+
+
 });
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +48,5 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
     //
+
 });
