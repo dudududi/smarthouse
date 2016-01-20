@@ -17,6 +17,13 @@ class RoomController extends Controller
     public function index()
     {
         //
+        $myArray = array();
+
+        $marray=array();
+        for($i=1;$i<10;$i++)
+        { $myarray[]=array("room_number" => $i, "room_name" => ('My room '.$i));}
+        
+        return json_encode($myarray);
     }
 
     /**
