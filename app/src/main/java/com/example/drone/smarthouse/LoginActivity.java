@@ -39,6 +39,32 @@ public class LoginActivity extends Activity {
 
                 //jak wywolujemy jakis setter, to nie musimy sie martwic o odpowiedz - Logi zapisza się na serwerze
                 ConnectionService.getInstance().setTemperature(30, 1);
+
+                //autentykacja do logowania
+                ConnectionService.getInstance().authenticate("ryanchenkie@gmail.com", "secret", new ConnectionService.ResponseHandler() {
+                    @Override
+                    public void onResponseReceived(HashMap<String, Integer> response) {
+                        Log.d("TAG", "User authenticated.");
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        Log.d("TAG", "Error: " + msg);
+                    }
+                });
+
+                //sprawdzanie dostępności serwera
+                ConnectionService.getInstance().checkServerAvailable(new ConnectionService.ResponseHandler() {
+                    @Override
+                    public void onResponseReceived(HashMap<String, Integer> response) {
+                        Log.d("TAG", "Server available");
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        Log.d("TAG", "Error: " + msg);
+                    }
+                });
             }
         });
 
