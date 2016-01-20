@@ -14,7 +14,7 @@ import java.util.HashMap;
  */
 public class ConnectionService{
     private String TAG = "SmartHouse";
-    private String baseUrl = "http://188.166.117.195/api/rooms";
+    private String baseUrl = "http://188.166.117.195/api";
 
     private ConnectionService(){
         webService = new ServiceHandler();
@@ -36,15 +36,18 @@ public class ConnectionService{
 
     /**
      * Command to the service to get the current temperature from server.
-     * @param roomNumber number of room, from which value will be gained
-     * @param handler handler to obtain result asynchronously
+     * @param roomNumber number of room, from which value will be gained.
+     * @param handler handler to obtain result asynchronously. When no error occurs - onResponseReceived invoked with
+     *                HashMap as argument. HashMap contains only one key: "windows-opened". The value of this key
+     *                is actual temperature in given room.
+     *                When any error occur - onError with message as argument invoked.
      */
     public void getTemperature(final int roomNumber, final ResponseHandler handler){
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String url = baseUrl + "/"+roomNumber+"/temperature";
+                    String url = baseUrl + "/rooms/"+roomNumber+"/temperature";
                     String temperature = webService.makeRequest(url, ServiceHandler.GET);
                     HashMap<String, Integer> response = new HashMap<>();
                     response.put("temperature", Integer.valueOf(temperature));
@@ -70,7 +73,7 @@ public class ConnectionService{
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String url = baseUrl + "/"+roomNumber+"/temperature";
+                    String url = baseUrl + "/rooms/"+roomNumber+"/temperature";
                     webService.makeRequest(url, ServiceHandler.POST);
                     Log.d(TAG, "Temperature changed: " + temperature);
                 } catch (Exception e) {
@@ -86,14 +89,17 @@ public class ConnectionService{
     /**
      * Command to the service to get the current status of room windows from server.
      * @param roomNumber number of room, from which value will be gained
-     * @param handler handler to obtain result asynchronously (0-closed, 1-open)
+     * @param handler handler to obtain result asynchronously. When no error occurs - onResponseReceived invoked with
+     *                HashMap as argument. HashMap contains only one key: "windows-opened". When value of this key is
+     *                0 - windows are closed, when 1 - windows are opened.
+     *                When any error occur - onError with message as argument invoked.
      */
     public void getWindowsStatus(final int roomNumber, final ResponseHandler handler){
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String url = baseUrl + "/"+roomNumber+"/windows";
+                    String url = baseUrl + "/rooms/"+roomNumber+"/windows";
                     String isOpen = webService.makeRequest(url, ServiceHandler.GET);
                     HashMap<String, Integer> response = new HashMap<>();
                     response.put("windows-open", Integer.valueOf(isOpen));
@@ -119,7 +125,7 @@ public class ConnectionService{
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String url = baseUrl + "/"+roomNumber+"/windows";
+                    String url = baseUrl + "/rooms/"+roomNumber+"/windows";
                     webService.makeRequest(url, ServiceHandler.POST);
                     Log.d(TAG, "Windows status changed: " + setOpen);
                 } catch (Exception e) {
@@ -134,14 +140,17 @@ public class ConnectionService{
     /**
      * Command to the service to get the current status of room doors from server.
      * @param roomNumber number of room, from which value will be gained
-     * @param handler handler to obtain result asynchronously (0-closed, 1-open)
+     * @param handler handler to obtain result asynchronously. When no error occurs - onResponseReceived invoked with
+     *                HashMap as argument. HashMap contains only one key: "doors-open". When value of this key is
+     *                0 - doors are closed, when 1 - doors are opened.
+     *                When any error occur - onError with message as argument invoked.
      */
     public void getDoorsStatus(final int roomNumber, final ResponseHandler handler){
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String url = baseUrl + "/"+roomNumber+"/doors";
+                    String url = baseUrl + "/rooms/"+roomNumber+"/doors";
                     String isOpen = webService.makeRequest(url, ServiceHandler.GET);
                     HashMap<String, Integer> response = new HashMap<>();
                     response.put("doors-open", Integer.valueOf(isOpen));
@@ -166,7 +175,7 @@ public class ConnectionService{
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String url = baseUrl + "/"+roomNumber+"/doors";
+                    String url = baseUrl + "/rooms/"+roomNumber+"/doors";
                     webService.makeRequest(url, ServiceHandler.POST);
                     Log.d(TAG, "Windows status changed: " + setOpen);
                 } catch (Exception e) {
@@ -182,17 +191,20 @@ public class ConnectionService{
     /**
      * Command to the service to get the current status of light in room from server.
      * @param roomNumber number of room, from which value will be gained
-     * @param handler handler to obtain result asynchronously (0-turnedOFF, 1-turnedON)
+     * @param handler handler to obtain result asynchronously. When no error occurs - onResponseReceived invoked with
+     *                HashMap as argument. HashMap contains only one key: "lights-turnedON". When value of this key is
+     *                0 - lights are turned off, when 1 - lights are turned on.
+     *                When any error occur - onError with message as argument invoked.
      */
     public void getLightsStatus(final int roomNumber, final ResponseHandler handler){
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String url = baseUrl + "/"+roomNumber+"/lights";
+                    String url = baseUrl + "/rooms/"+roomNumber+"/lights";
                     String isOn = webService.makeRequest(url, ServiceHandler.GET);
                     HashMap<String, Integer> response = new HashMap<>();
-                    response.put("lights-open", Integer.valueOf(isOn));
+                    response.put("lights-turnedON", Integer.valueOf(isOn));
                     handler.onResponseReceived(response);
                 } catch (Exception e) {
                     Log.d(TAG, e.getMessage());
@@ -214,7 +226,7 @@ public class ConnectionService{
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String url = baseUrl + "/"+roomNumber+"/lights";
+                    String url = baseUrl + "/rooms/"+roomNumber+"/lights";
                     webService.makeRequest(url, ServiceHandler.POST);
                     Log.d(TAG, "Windows status changed: " + setON);
                 } catch (Exception e) {
@@ -228,10 +240,47 @@ public class ConnectionService{
 
     /**
      * Command to the service to check whether the status is available or not.
-     * @param handler handler to obtain result asynchronously
+     * @param handler handler to obtain result asynchronously. When server is available - onResponseReceived with null
+     *                as argument invoked. When server is not available - onError with message as argument invoked.
      */
-    public void checkServerAvailable(ResponseHandler handler){
-
+    public void checkServerAvailable(final ResponseHandler handler){
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    String url =  baseUrl + "/rooms";
+                    webService.isAvailable(url);
+                    handler.onResponseReceived(null);
+                } catch (Exception e) {
+                    Log.d(TAG, e.getMessage());
+                    handler.onError(e.getMessage());
+                }
+                return null;
+            }
+        }.execute();
+    }
+    /**
+     * Command to the service to authenticate the user.
+     * @param email user's email
+     * @param password user's password
+     * @param handler handler to obtain result asynchronously. When authenticated - onResponseReceived with null as
+     *                argument invoked. When not authenticated - onError with message as argument invoked
+     */
+    public void authenticate(final String email, final String password, final ResponseHandler handler){
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    String url = baseUrl + "/authenticate?email="+email+"&password=" + password;
+                    webService.makeAuthenticateRequest(url);
+                    handler.onResponseReceived(null);
+                } catch (Exception e) {
+                    Log.d(TAG, e.getMessage());
+                    handler.onError(e.getMessage());
+                }
+                return null;
+            }
+        }.execute();
     }
 
     /**
@@ -243,7 +292,7 @@ public class ConnectionService{
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    String url = baseUrl;
+                    String url = baseUrl + "/rooms";
                     String json = webService.makeRequest(url, ServiceHandler.GET);
                     JSONArray list = new JSONArray(json);
                     HashMap<String, Integer> response = new HashMap<>();
@@ -313,6 +362,30 @@ public class ConnectionService{
             reader.close();
             if (status != 200) throw new Exception(buffer.toString());
             return buffer.toString();
+        }
+
+        public void isAvailable(String url) throws Exception{
+            URL mUrl = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) mUrl.openConnection();
+            connection.setRequestMethod("GET");
+            int status =  connection.getResponseCode();
+            connection.disconnect();
+            if (status != 200) throw new Exception("Error. Server not available.");
+        }
+
+        public void makeAuthenticateRequest(String url) throws Exception{
+            HttpURLConnection connection;
+            int status;
+
+            URL mUrl = new URL(url);
+            connection = (HttpURLConnection) mUrl.openConnection();
+            connection.setRequestMethod("POST");
+            status = connection.getResponseCode();
+            Log.d(TAG, "Status: " + status);
+            connection.disconnect();
+            if (status != 200) {
+                throw new Exception("Authentication failed. Invalid credentials.");
+            }
         }
     }
 
