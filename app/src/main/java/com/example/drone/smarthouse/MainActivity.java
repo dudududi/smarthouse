@@ -2,15 +2,54 @@ package com.example.drone.smarthouse;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends Activity {
+
+    /**
+     * Service to connect with server
+     */
+    private ConnectionService connectionService;
+
+    /**
+     * Containers to aggregate information about rooms
+     */
+    private ArrayList<String> rooms;
+    private ArrayAdapter<String> roomAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        connectionService = ConnectionService.getInstance();
+        rooms = new ArrayList<>();
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+            connectionService.requestRoomList(new ConnectionService.ResponseHandler() {
+                @Override
+                public void onResponseReceived(HashMap<String, Integer> response) {
+                    for (Map.Entry<String, Integer> entry : response.entrySet()) {
+                        rooms.add(entry.getKey());
+                    }
+                    roomAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item, rooms);
+                    spinner.setAdapter(roomAdapter);
+                }
+
+                @Override
+                public void onError(String msg) {
+                    Log.d("TAG", "Error: " + msg);
+                }
+            });
 
     }
 
