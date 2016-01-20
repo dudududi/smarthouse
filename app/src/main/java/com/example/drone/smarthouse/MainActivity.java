@@ -1,11 +1,14 @@
 package com.example.drone.smarthouse;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ public class MainActivity extends Activity {
     /**
      * Containers to aggregate information about rooms
      */
+    private HashMap<String, Integer> roomsMap;
     private ArrayList<String> rooms;
     private ArrayAdapter<String> roomAdapter;
 
@@ -35,14 +39,24 @@ public class MainActivity extends Activity {
         rooms = new ArrayList<>();
 
         final Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        final Button button = (Button) findViewById(R.id.sendRoom);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RoomActivity.class);
+                intent.putExtra("room", roomsMap.get(spinner.getSelectedItem().toString()));
+                startActivity(intent);
+            }
+        });
 
 
-            connectionService.requestRoomList(new ConnectionService.ResponseHandler() {
+        connectionService.requestRoomList(new ConnectionService.ResponseHandler() {
                 @Override
                 public void onResponseReceived(HashMap<String, Integer> response) {
                     for (Map.Entry<String, Integer> entry : response.entrySet()) {
                         rooms.add(entry.getKey());
                     }
+                    roomsMap = response;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -50,6 +64,7 @@ public class MainActivity extends Activity {
                             spinner.setAdapter(roomAdapter);
                             spinner.setSelection(0);
                             roomAdapter.notifyDataSetChanged();
+                            Log.d("TAG", spinner.getSelectedItem().toString());
                         }
                     });
                 }
@@ -59,7 +74,6 @@ public class MainActivity extends Activity {
                     Log.d("TAG", "Error: " + msg);
                 }
             });
-
     }
 
     @Override
