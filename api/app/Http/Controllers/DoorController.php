@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+
+
 class DoorController extends Controller
 {
     /**
@@ -14,9 +16,11 @@ class DoorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function index($id)
     {
         //
+        return json_encode(rand(0,1));
     }
 
     /**
@@ -27,6 +31,11 @@ class DoorController extends Controller
     public function create()
     {
         //
+        return Log::create([
+            'from'=>("DoorController ".$id),
+            'action'=>1,
+            'value'=>1
+        ]);
     }
 
     /**
