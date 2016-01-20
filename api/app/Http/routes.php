@@ -21,6 +21,7 @@ Route::group(['prefix'=>'api'],function(){
 
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
+    Route::post('authenticate','AuthenticateController@authenticate');
 
     Route::resource('rooms.temperature','TemperatureController',['only' => ['index','store']]);
 

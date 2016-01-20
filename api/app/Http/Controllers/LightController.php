@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Log;
 
 class LightController extends Controller
 {
@@ -39,6 +40,11 @@ class LightController extends Controller
     public function store(Request $request)
     {
         //
+        return Log::create([
+            'from'=>("LightController".$id),
+            'action'=>$request,
+            'value'=>1
+        ]);
     }
 
     /**

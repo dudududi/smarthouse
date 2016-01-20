@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Log;
 
 
 
@@ -31,11 +32,7 @@ class DoorController extends Controller
     public function create()
     {
         //
-        return Log::create([
-            'from'=>("DoorController ".$id),
-            'action'=>1,
-            'value'=>1
-        ]);
+
     }
 
     /**
@@ -47,6 +44,11 @@ class DoorController extends Controller
     public function store(Request $request)
     {
         //
+        return Log::create([
+            'from'=>("DoorController ".$id),
+            'action'=>1,
+            'value'=>1
+        ]);
     }
 
     /**

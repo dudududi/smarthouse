@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Log;
 
 class TemperatureController extends Controller
 {
@@ -36,9 +37,14 @@ class TemperatureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
         //
+        return Log::create([
+            'from'=>("TemperatureController".$id),
+            'action'=>1,
+            'value'=>1
+        ]);
     }
 
     /**
