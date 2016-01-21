@@ -29,21 +29,31 @@ public class MainActivity extends Activity {
     private ArrayList<String> rooms;
     private ArrayAdapter<String> roomAdapter;
 
+    private Spinner spinner;
+    private Button button;
+    private Intent intent;
+
+    /**
+     * Method to init components
+     */
+    private void init(){
+        connectionService = ConnectionService.getInstance();
+        rooms = new ArrayList<>();
+        spinner = (Spinner) findViewById(R.id.spinner);
+        button = (Button) findViewById(R.id.sendRoom);
+        intent = new Intent(MainActivity.this, RoomActivity.class);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        this.init();
 
-        connectionService = ConnectionService.getInstance();
-        rooms = new ArrayList<>();
-
-        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        final Button button = (Button) findViewById(R.id.sendRoom);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RoomActivity.class);
                 intent.putExtra("room", roomsMap.get(spinner.getSelectedItem().toString()));
                 startActivity(intent);
             }
