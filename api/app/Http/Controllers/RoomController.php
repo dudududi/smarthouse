@@ -17,13 +17,18 @@ class RoomController extends Controller
     public function index()
     {
         //
-        $myArray = array();
 
-        $marray=array();
-        for($i=1;$i<10;$i++)
-        { $myarray[]=array("room_number" => $i, "room_name" => ('My room '.$i));}
+  $myArray = array();
 
-        return json_encode($myarray);
+$marray=array();
+//set up the nested associative arrays using literal array notation
+  for($i=1;$i<10;$i++)
+   { $myarray[]=array("room_number" => $i, "room_name" => ('My room '.$i));}
+
+
+// Force the outer structure into an object rather than array
+return json_encode($myarray);
+        
     }
 
     /**
@@ -45,6 +50,7 @@ class RoomController extends Controller
     public function store(Request $request)
     {
         //
+        return ($request->input('room_number'));
     }
 
     /**

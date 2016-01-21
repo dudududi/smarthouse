@@ -11,26 +11,28 @@
 |
 */
 
-//Route::get('/', function () {
-//  return view('index');
-//});
+Route::get('/', function () {
+   return ('NIC TU NIE MA BO CISNIEMY IO');
+});
 
 
 
 Route::group(['prefix'=>'api'],function(){
 
-    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
-    Route::post('authenticate','AuthenticateController@authenticate');
 
-    Route::resource('rooms.temperature','TemperatureController',['only' => ['index','store']]);
 
-    Route::resource('rooms','Roomcontroller',['only' => ['index']]);
+Route::post('authenticate','AuthenticateController@authenticate');
+Route::resource('rooms.temperature','TemperatureController',['only' => ['index','store']]);
 
-    Route::resource('rooms.doors','DoorController',['only' => ['index','store']]);
+Route::resource('rooms','RoomController',['only' => ['index']]);
 
-    Route::resource('rooms.lights','LightController',['only' => ['index','store']]);
+Route::resource('rooms.doors','DoorController',['only' => ['index','store']]);
 
+Route::resource('rooms.lights','LightController',['only' => ['index','store']]);
+
+Route::resource('rooms.windows','WindowController',['only'=>['index','store']]);
 
 });
 

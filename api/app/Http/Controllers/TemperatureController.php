@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Temperature;
 use App\Log;
 
 class TemperatureController extends Controller
@@ -18,7 +19,9 @@ class TemperatureController extends Controller
     public function index($id)
     {
         //
-        return json_encode(rand(15,30));
+        $json =  Temperature::where('room_id',(int)$id)->select('value')->get();
+        $obj = json_decode($json,true);
+       return $obj[0]['value'];
     }
 
     /**
@@ -40,11 +43,14 @@ class TemperatureController extends Controller
     public function store(Request $request,$id)
     {
         //
-        return Log::create([
+        Log::create([
             'from'=>("TemperatureController".$id),
-            'action'=>1,
-            'value'=>1
-        ]);
+            'action'=>$request->ip(),
+            'value'=>$request->input('value')
+            ]);
+
+       return Temperature::where('room_id', $id)
+        ->update(array('value' =>(int)$request->input('value')));
     }
 
     /**

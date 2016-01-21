@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Window;
 use App\Log;
-use App\Door;
 
-class DoorController extends Controller
+class WindowController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class DoorController extends Controller
     public function index($id)
     {
         //
-        $json =  Door::where('room_id',(int)$id)->select('value')->get();
+        $json =  Window::where('room_id',(int)$id)->select('value')->get();
         $obj = json_decode($json,true);
        return $obj[0]['value'];
     }
@@ -42,14 +42,16 @@ class DoorController extends Controller
      */
     public function store(Request $request,$id)
     {
+        //
+
         Log::create([
-            'from'=>("DoorController".$id),
+            'from'=>("WindowController".$id),
             'action'=>$request->ip(),
             'value'=>$request->input('value')
             ]);
 
-              
-         return Door::where('room_id', $id)
+
+        return Window::where('room_id', $id)
         ->update(array('value' =>(int)$request->input('value')));
     }
 
