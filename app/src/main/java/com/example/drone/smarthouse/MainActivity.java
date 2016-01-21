@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
     /**
      * Method to init components
      */
-    private void init(){
+    private void initComponents(){
         connectionService = ConnectionService.getInstance();
         rooms = new ArrayList<>();
         spinner = (Spinner) findViewById(R.id.spinner);
@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        this.init();
+        this.initComponents();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

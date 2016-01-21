@@ -33,6 +33,7 @@ public class LoginActivity extends Activity {
      * Button to Log In.
      */
     private Button button;
+    private Intent intent;
 
     /**
      * Method to init components
@@ -42,6 +43,7 @@ public class LoginActivity extends Activity {
         loginLabel = (EditText) findViewById(R.id.loginTest);
         passwdLabel = (EditText) findViewById(R.id.editText);
         button = (Button) findViewById(R.id.loginButton);
+        intent = new Intent(LoginActivity.this, MainActivity.class);
     }
 
     @Override
@@ -68,7 +70,6 @@ public class LoginActivity extends Activity {
                         connectionService.authenticate(login, password, new ConnectionService.ResponseHandler() {
                             @Override
                             public void onResponseReceived(HashMap<String, Integer> response) {
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
                             }
 
