@@ -1,0 +1,968 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>SmartHouse API</title>
+    <style type="text/css">
+      body { 
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+	display: none;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+    </style>
+  </head>
+  <body>
+  <h1>SmartHouse API</h1>
+    <div class="app-desc">API for SmartHouse application</div>
+    <div class="app-desc">Version: 1.0.0</div>
+        <div class="app-desc">Kamil Dudek Adrian Foremny Maciej Ciach Szymon Furman</div>
+
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+  
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  
+  <h2>Table of Contents </h2>
+  <div class="method-summary"></div>
+  
+  <ol>
+  
+  
+  
+  <li><a href="#authenticatePost"><code><span class="http-method">post</span> /authenticate</code></a></li>
+  
+  <li><a href="#roomsGet"><code><span class="http-method">get</span> /rooms</code></a></li>
+  
+  <li><a href="#roomsRoomNumberDoorsGet"><code><span class="http-method">get</span> /rooms/room_number/doors</code></a></li>
+  
+  <li><a href="#roomsRoomNumberDoorsPost"><code><span class="http-method">post</span> /rooms/room_number/doors</code></a></li>
+  
+  <li><a href="#roomsRoomNumberLightsGet"><code><span class="http-method">get</span> /rooms/room_number/lights</code></a></li>
+  
+  <li><a href="#roomsRoomNumberLightsPost"><code><span class="http-method">post</span> /rooms/room_number/lights</code></a></li>
+  
+  <li><a href="#roomsRoomNumberTemperatureGet"><code><span class="http-method">get</span> /rooms/room_number/temperature</code></a></li>
+  
+  <li><a href="#roomsRoomNumberTemperaturePost"><code><span class="http-method">post</span> /rooms/room_number/temperature</code></a></li>
+  
+  <li><a href="#roomsRoomNumberWindowsGet"><code><span class="http-method">get</span> /rooms/room_number/windows</code></a></li>
+  
+  <li><a href="#roomsRoomNumberWindowsPost"><code><span class="http-method">post</span> /rooms/room_number/windows</code></a></li>
+  
+  
+  
+  </ol>
+  
+
+  
+  
+  
+  
+  <div class="method"><a name="authenticatePost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /authenticate</code></pre></div>
+    <div class="method-summary">User Authentication with JWT provided (<span class="nickname">authenticatePost</span>)</div>
+    
+    <div class="method-notes">Endpoint used for authorization</div>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">email (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Email of app user </div><div class="param">password (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Password of app user </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Token">Token</a>
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>text/html</code></li>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    JWT token provided
+    
+    
+    <h4 class="field-label">401</h4>
+    Bad password and email combination
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="roomsGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /rooms</code></pre></div>
+    <div class="method-summary">Room list (<span class="nickname">roomsGet</span>)</div>
+    
+    <div class="method-notes">Room endpoint returns room array with room name and number You have to set value inside json request body</div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Roomlist">Roomlist</a>]
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>text/html</code></li>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    An array of rooms
+    
+    
+    <h4 class="field-label">0</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="roomsRoomNumberDoorsGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /rooms/room_number/doors</code></pre></div>
+    <div class="method-summary">Door state (<span class="nickname">roomsRoomNumberDoorsGet</span>)</div>
+    
+    <div class="method-notes">Room endpoint returns the state of doors inside room selected by room_number</div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#DoorValue">DoorValue</a>
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>text/html</code></li>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    Door state 0 - opened,1- closed
+    
+    
+    <h4 class="field-label">0</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="roomsRoomNumberDoorsPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /rooms/room_number/doors</code></pre></div>
+    <div class="method-summary">Door state (<span class="nickname">roomsRoomNumberDoorsPost</span>)</div>
+    
+    <div class="method-notes">Room endpoint sets the state of doors</div>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">value (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; 0 for closing,1 for opening </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>text/html</code></li>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    Door state was set
+    
+    
+    <h4 class="field-label">0</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="roomsRoomNumberLightsGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /rooms/room_number/lights</code></pre></div>
+    <div class="method-summary">Door state (<span class="nickname">roomsRoomNumberLightsGet</span>)</div>
+    
+    <div class="method-notes">Room endpoint returns the state of lights inside room selected by room_number</div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#LightValue">LightValue</a>
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>text/html</code></li>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    Light state 0 - off,1- on
+    
+    
+    <h4 class="field-label">0</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="roomsRoomNumberLightsPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /rooms/room_number/lights</code></pre></div>
+    <div class="method-summary">Light state (<span class="nickname">roomsRoomNumberLightsPost</span>)</div>
+    
+    <div class="method-notes">Room endpoint sets the state of light</div>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">value (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; 0 for off,1 for on </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>text/html</code></li>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    Light state was set
+    
+    
+    <h4 class="field-label">0</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="roomsRoomNumberTemperatureGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /rooms/room_number/temperature</code></pre></div>
+    <div class="method-summary">Door state (<span class="nickname">roomsRoomNumberTemperatureGet</span>)</div>
+    
+    <div class="method-notes">Room endpoint returns the tenmperature inside room selected by room_number</div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#TemperatureValue">TemperatureValue</a>
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>text/html</code></li>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    Temperature value in degree Celcius
+    
+    
+    <h4 class="field-label">0</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="roomsRoomNumberTemperaturePost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /rooms/room_number/temperature</code></pre></div>
+    <div class="method-summary">Temperature control (<span class="nickname">roomsRoomNumberTemperaturePost</span>)</div>
+    
+    <div class="method-notes">Room endpoint sets the temperature</div>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">value (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Desired temperature </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>text/html</code></li>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    Temperature was set
+    
+    
+    <h4 class="field-label">0</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="roomsRoomNumberWindowsGet"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /rooms/room_number/windows</code></pre></div>
+    <div class="method-summary">Window state (<span class="nickname">roomsRoomNumberWindowsGet</span>)</div>
+    
+    <div class="method-notes">Room endpoint returns the state of windows inside room selected by room_number</div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#WindowValue">WindowValue</a>
+      
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>text/html</code></li>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    Window state 0 - closed,1- opened
+    
+    
+    <h4 class="field-label">0</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="roomsRoomNumberWindowsPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /rooms/room_number/windows</code></pre></div>
+    <div class="method-summary">Window state (<span class="nickname">roomsRoomNumberWindowsPost</span>)</div>
+    
+    <div class="method-notes">Room endpoint sets the state of window</div>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">value (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; 0 for closed,1 for opened </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>text/html</code></li>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    Window state was set
+    
+    
+    <h4 class="field-label">0</h4>
+    Unexpected error
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  
+  
+  
+
+  <div class="up"><a href="#__Models">Up</a></div>
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h2>Table of Contents</h2>
+  <ol>
+  
+  
+    <li><a href="#Error"><code>Error</code></a></li>
+  
+  
+  
+    <li><a href="#Token"><code>Token</code></a></li>
+  
+  
+  
+    <li><a href="#BadCredentials"><code>BadCredentials</code></a></li>
+  
+  
+  
+    <li><a href="#Roomlist"><code>Roomlist</code></a></li>
+  
+  
+  
+    <li><a href="#DoorValue"><code>DoorValue</code></a></li>
+  
+  
+  
+    <li><a href="#WindowValue"><code>WindowValue</code></a></li>
+  
+  
+  
+    <li><a href="#TemperatureValue"><code>TemperatureValue</code></a></li>
+  
+  
+  
+    <li><a href="#LightValue"><code>LightValue</code></a></li>
+  
+  
+  </ol>
+
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="Error">Error</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">code </div><div class="param-desc"><span class="param-type">Integer</span> </div>
+      
+      <div class="param">message </div><div class="param-desc"><span class="param-type">String</span> </div>
+      
+      <div class="param">fields </div><div class="param-desc"><span class="param-type">String</span> </div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="Token">Token</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">token </div><div class="param-desc"><span class="param-type">String</span> </div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="BadCredentials">BadCredentials</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">error </div><div class="param-desc"><span class="param-type">String</span> invalid_credeintials</div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="Roomlist">Roomlist</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">room_name </div><div class="param-desc"><span class="param-type">String</span> room name</div>
+      
+      <div class="param">room_number </div><div class="param-desc"><span class="param-type">Integer</span> room number</div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="DoorValue">DoorValue</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">value </div><div class="param-desc"><span class="param-type">Boolean</span> </div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="WindowValue">WindowValue</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">value </div><div class="param-desc"><span class="param-type">Boolean</span> </div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="TemperatureValue">TemperatureValue</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">value </div><div class="param-desc"><span class="param-type">Integer</span> </div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3 class="field-label"><a name="LightValue">LightValue</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class="field-items">
+      <div class="param">value </div><div class="param-desc"><span class="param-type">Boolean</span> </div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  </body>
+</html>
