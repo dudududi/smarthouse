@@ -90,7 +90,10 @@
         android:layout_marginTop="53dp"
         android:layout_alignEnd="@+id/windowsButton"
         android:background="#ffffff"
-        android:clickable="false" />
+        android:clickable="false"
+        android:max="30"
+        android:progress="0"
+        android:indeterminate="false" />
 
     <TextView
         android:layout_width="wrap_content"
