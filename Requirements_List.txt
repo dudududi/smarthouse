@@ -1,0 +1,19 @@
+Functionalities:
+Critical:
+- turning on/off lights
+- opening/closing doors
+- opening/closing windows
+- Temperature control
+- choosing rooms
+Optional:
+- remote arming alarms
+- setting temperature in room
+- motion detection
+- weather detection
+
+non-Functionalities:
+Critical:
+- support for Android OS
+- Register User on Server
+Optional:
+- support for iOS and Windows Phone
