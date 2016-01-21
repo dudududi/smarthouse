@@ -30,4 +30,16 @@
             android:drawSelectorOnTop="true"
             android:background="#e6fff2"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wybierz Pokoj"
+        android:id="@+id/sendRoom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="140dp"
+        android:layout_alignRight="@+id/spinner"
+        android:layout_alignEnd="@+id/spinner" />
+
 </RelativeLayout>
