@@ -3,7 +3,6 @@ package com.example.drone.smarthouse;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -200,7 +199,7 @@ public class RoomActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room);
+        setContentView(R.layout.room_layout);
         this.initComponents();
         this.initValues();
         lightCondition.setText(this.getLightStatus());
@@ -212,8 +211,7 @@ public class RoomActivity extends Activity {
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RoomActivity.this, MainActivity.class);
-                startActivity(intent);
+                RoomActivity.this.finish();
             }
         });
 
