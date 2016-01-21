@@ -20,16 +20,35 @@ public class LoginActivity extends Activity {
     private ConnectionService connectionService;
 
     /**
-     * Fields to get the credential from EditText's
+     * Fields to aggregate the credential from EditText's
      */
     private String login, password;
+
+    /**
+     * Fields to get the credential
+     */
+    private EditText loginLabel, passwdLabel;
+
+    /**
+     * Button to Log In.
+     */
+    private Button button;
+
+    /**
+     * Method to init components
+     */
+    private void initComponents(){
+        connectionService = ConnectionService.getInstance();
+        loginLabel = (EditText) findViewById(R.id.loginTest);
+        passwdLabel = (EditText) findViewById(R.id.editText);
+        button = (Button) findViewById(R.id.loginButton);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        connectionService = ConnectionService.getInstance();
+        this.initComponents();
 
         /**
          * Checking status of server
@@ -37,10 +56,6 @@ public class LoginActivity extends Activity {
         connectionService.checkServerAvailable(new ConnectionService.ResponseHandler() {
             @Override
             public void onResponseReceived(HashMap<String, Integer> response) {
-                final EditText loginLabel = (EditText) findViewById(R.id.loginTest);
-                final EditText passwdLabel = (EditText) findViewById(R.id.editText);
-
-                final Button button = (Button) findViewById(R.id.loginButton);
                 button.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
 
@@ -68,7 +83,7 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onError(String msg) {
-
+                Log.d("TAG", "Error: " + msg);
             }
         });
     }
